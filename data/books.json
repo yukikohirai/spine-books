@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "in-the-megachurch",
+    "title": "イン・ザ・メガチャーチ",
+    "author": "朝井リョウ",
+    "cover": "images/megachurch.jpg",
+    "to": "何かに夢中になったことがある人へ",
+    "genre": "小説",
+    "description": "推し活とファンダム経済を、運営する側・のめり込む側・抜け出した側、3つの視点で描く。読み終えたあと、自分が何かに熱中したときのことを思い出してしまう。2026年本屋大賞受賞作。",
+    "comment": "",
+    "amazon_url": "https://www.amazon.co.jp/dp/4296121049",
+    "rakuten_url": ""
+  },
+  {
+    "slug": "convenience-store-woman",
+    "title": "コンビニ人間",
+    "author": "村田沙耶香",
+    "cover": "images/conbini.jpg",
+    "to": "「普通」に疲れた人へ",
+    "genre": "小説",
+    "description": "「普通」であることへの圧力を、こんなに静かに、こんなに鋭く書けるのかと驚いた。主人公に笑えない人は、たぶん自分の中にも彼女がいる。芥川賞受賞作。",
+    "comment": "",
+    "amazon_url": "https://www.amazon.co.jp/dp/4167911302",
+    "rakuten_url": ""
+  },
+  {
+    "slug": "ta-today",
+    "title": "TA TODAY",
+    "author": "イアン・スチュアート／ヴァン・ジョインズ",
+    "cover": "images/ta-today.jpg",
+    "to": "人間関係のパターンに気づきたい人へ",
+    "genre": "心理学",
+    "description": "交流分析（TA）の教科書。自分の中の「親・大人・子ども」という3つの自我状態を知ると、人間関係のパターンが見えてくる。重いけど、読む価値がある一冊。",
+    "comment": "",
+    "amazon_url": "https://www.amazon.co.jp/dp/4788960419",
+    "rakuten_url": ""
+  },
+  {
+    "slug": "jibun-niwa-kachi-ga-nai",
+    "title": "「自分には価値がない」の心理学",
+    "author": "根本橘夫",
+    "cover": "images/kachi.jpg",
+    "to": "自分を責めがちな人へ",
+    "genre": "心理学",
+    "description": "「どうせ私なんて」と思いやすい人に渡したい本。なぜそう感じるのかの構造が丁寧に解かれていて、読んでいると自分への見方が少しずつ変わっていく。",
+    "comment": "",
+    "amazon_url": "https://www.amazon.co.jp/dp/4022736925",
+    "rakuten_url": ""
+  },
+  {
+    "slug": "hito-wa-naze-damasareru",
+    "title": "人はなぜだまされるのか",
+    "author": "石川幹人",
+    "cover": "images/damasareru.jpg",
+    "to": "情報に流されたくない人へ",
+    "genre": "心理学",
+    "description": "騙されるのは頭が悪いからじゃなく、進化の過程で獲得した認知の仕組みによるものだという話。自分が何に引っかかりやすいかを知るための本。",
+    "comment": "",
+    "amazon_url": "https://www.amazon.co.jp/dp/4062577321",
+    "rakuten_url": ""
+  }
+]

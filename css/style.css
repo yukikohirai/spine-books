@@ -1,0 +1,796 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Sans+JP:wght@300;400&family=Noto+Serif+JP:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=EB+Garamond:ital,wght@0,400;1,400&family=Josefin+Sans:wght@200;300&family=Raleway:wght@200;300&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #c8e0da;
+  --bg-card: #daeee9;
+  --bg-hero: #faf9f7;
+  --text: #0f0f0f;
+  --text-muted: #888888;
+  --accent: #2e6b5e;
+  --border: #a8ccc4;
+  --spine-width: 48px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  padding-left: var(--spine-width);
+}
+
+/* ─── Hero (2-column layout) ─── */
+.hero {
+  background: var(--bg);
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px 6vw 48px 5vw;
+  border-right: 1px solid rgba(0,0,0,0.08);
+}
+
+.hero-brand {
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 0.22em;
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.55;
+}
+
+.hero-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.hero-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  color: var(--text);
+  opacity: 0.4;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.hero-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-nav-link {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: var(--text);
+  opacity: 0.45;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity 0.2s;
+}
+
+.hero-nav-link:hover { opacity: 0.8; }
+
+/* ─── Hero Shelf illustration ─── */
+.hero-shelf {
+  margin-bottom: 32px;
+}
+
+.shelf-svg {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  color: var(--text);
+  display: block;
+}
+
+/* ─── Hero Right: BGM ─── */
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 5vw 48px 6vw;
+}
+
+.hero-bgm {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.bgm-title {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  color: var(--text);
+  opacity: 0.35;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(1.8rem, 3.1vw, 3.2rem);
+  line-height: 1.45;
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: 24px;
+  letter-spacing: 0.02em;
+}
+
+.hero-title em {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.hero-sub {
+  font-size: 0.85rem;
+  color: var(--text);
+  opacity: 0.5;
+  max-width: 360px;
+  line-height: 2;
+  font-weight: 300;
+}
+
+.scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  color: var(--text);
+  opacity: 0.35;
+  text-transform: uppercase;
+}
+
+.scroll-line {
+  width: 40px;
+  height: 1px;
+  background: var(--text);
+  animation: scroll-pulse 2s ease-in-out infinite;
+}
+
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 1; transform: scaleX(1); }
+  50% { opacity: 0.4; transform: scaleX(0.6); }
+}
+
+/* ─── Books Section ─── */
+.books-section {
+  padding: 100px 8vw;
+}
+
+.section-header {
+  margin-bottom: 60px;
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.section-count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+/* ─── Filter Tags ─── */
+.filter-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.filter-tag {
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-tag:hover,
+.filter-tag.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ─── Book Grid ─── */
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 32px;
+}
+
+/* ─── Book Card ─── */
+.book-card {
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.book-card.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.book-card-inner {
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cover-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+  background: var(--bg-card);
+  margin-bottom: 16px;
+}
+
+.cover-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  display: block;
+}
+
+.book-card-inner:hover .cover-wrap img {
+  transform: scale(1.04);
+}
+
+.card-more {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.book-card-inner:hover .card-more {
+  opacity: 1;
+}
+
+/* ─── Book Detail Page ─── */
+.book-detail {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 64px 6vw 80px;
+  min-height: 80vh;
+}
+
+.back-link {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  color: var(--text);
+  opacity: 0.5;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.back-link:hover {
+  opacity: 1;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 56px;
+  margin-top: 48px;
+}
+
+.detail-cover img {
+  width: 100%;
+  display: block;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14);
+}
+
+.detail-cover .cover-placeholder {
+  aspect-ratio: 2/3;
+}
+
+.detail-to {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.detail-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.detail-author {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+.detail-desc {
+  font-size: 0.92rem;
+  line-height: 2.1;
+  margin-bottom: 28px;
+}
+
+.detail-comment p {
+  font-size: 0.92rem;
+  line-height: 2.1;
+  margin-bottom: 1.2em;
+}
+
+.detail-related {
+  margin-top: 80px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 40px;
+}
+
+.related-heading {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.related-card {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 12px 0;
+  text-decoration: none;
+  color: var(--text);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: color 0.2s;
+}
+
+.related-card:hover {
+  color: var(--accent);
+}
+
+.related-title {
+  font-size: 0.92rem;
+}
+
+.related-author {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.cover-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  padding: 24px;
+  text-align: center;
+  line-height: 1.5;
+  background: linear-gradient(145deg, #daeee9, #c8e0da);
+}
+
+.book-tag {
+  display: inline-block;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: var(--text);
+  opacity: 0.4;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.book-title {
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.book-author {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.book-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ─── Buy Links ─── */
+.buy-links {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.buy-link {
+  flex: 1;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+
+.buy-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.buy-link.amazon:hover {
+  border-color: #f0a500;
+  color: #f0a500;
+}
+
+.buy-link.rakuten:hover {
+  border-color: #bf0000;
+  color: #bf0000;
+}
+
+/* ─── Showcase (3D carousel) ─── */
+.showcase {
+  height: 180vh;
+  position: relative;
+  background: var(--bg-hero);
+}
+
+.showcase-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  perspective: 1000px;
+}
+
+.showcase-scene {
+  perspective: 1000px;
+}
+
+.showcase-stack {
+  position: relative;
+  width: 180px;
+  height: 270px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.showcase-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 180px;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.showcase-card .cover-wrap {
+  aspect-ratio: 2/3;
+  width: 180px;
+  margin-bottom: 0;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+}
+
+/* ─── Showcase info panel ─── */
+.showcase-info {
+  text-align: center;
+  max-width: 360px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.showcase-info.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.info-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.info-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.info-author {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.info-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+/* ─── Font Preview (temp) ─── */
+.font-preview {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  background: var(--bg-hero);
+  border: 1px solid var(--border);
+  padding: 40px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  min-width: 360px;
+}
+
+.font-preview-item {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+}
+
+.font-preview-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  width: 140px;
+  flex-shrink: 0;
+}
+
+.font-preview-name {
+  font-size: 2rem;
+  color: var(--accent);
+  font-weight: 300;
+}
+
+.f-cormorant { font-family: 'Cormorant Garamond', serif; }
+.f-eb        { font-family: 'EB Garamond', serif; }
+.f-josefin   { font-family: 'Josefin Sans', sans-serif; letter-spacing: 0.2em; }
+.f-raleway   { font-family: 'Raleway', sans-serif; letter-spacing: 0.15em; }
+
+/* ─── Left Spine ─── */
+.left-spine {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--spine-width);
+  background: var(--accent);
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.spine-title {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-family: 'EB Garamond', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: rgba(255,255,255,0.9);
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.spine-line {
+  width: 1px;
+  flex: 1;
+  max-height: 80px;
+  background: rgba(255,255,255,0.25);
+  margin: 16px 0;
+}
+
+/* ─── Header Tabs ─── */
+.header-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.header-tab:hover,
+.header-tab.active {
+  color: var(--accent);
+}
+
+/* ─── BGM rows (朝・昼・夜 × numbered tracks) ─── */
+.bgm-rows {
+  display: flex;
+  flex-direction: column;
+  max-width: 340px;
+}
+
+.bgm-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 2px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.bgm-row:last-child {
+  border-bottom: none;
+}
+
+.bgm-row-icon {
+  font-size: 0.8rem;
+  color: var(--text);
+  opacity: 0.45;
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.bgm-row-name {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  color: var(--text);
+  opacity: 0.65;
+  flex: 1;
+}
+
+.bgm-nums {
+  display: flex;
+  gap: 10px;
+}
+
+.bgm-num {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.75rem;
+  color: var(--text);
+  opacity: 0.65;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bgm-num:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  opacity: 1;
+}
+
+.bgm-num.playing {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  opacity: 1;
+}
+
+.volume-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  max-width: 340px;
+  margin-top: 18px;
+}
+
+.volume-slider {
+  flex: 1;
+  height: 2px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* ─── Footer ─── */
+footer {
+  padding: 60px 8vw;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+footer p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .books-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  header { padding: 16px 20px; }
+  .hero { padding: 0 6vw; }
+  .books-section { padding: 80px 5vw; }
+  .books-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 16px;
+  }
+}
