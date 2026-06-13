@@ -811,8 +811,9 @@ footer p {
   .hero-title { font-size: clamp(1.8rem, 8.5vw, 2.4rem); }
   .hero-sub { font-size: 0.82rem; }
 
-  /* Decorative bookshelf is too heavy on small screens */
-  .hero-shelf { display: none; }
+  /* Bookshelf: show centered above BGM */
+  .hero-shelf { margin: 8px auto 28px; }
+  .shelf-svg { max-width: 260px; margin: 0 auto; }
   .hero-right { padding: 0 6vw 48px; }
   .bgm-rows, .volume-row { max-width: 100%; }
 
