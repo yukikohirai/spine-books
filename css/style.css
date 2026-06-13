@@ -482,7 +482,7 @@ body {
 .showcase {
   height: 180vh;
   position: relative;
-  background: var(--bg-hero);
+  background: var(--bg);
 }
 
 .showcase-sticky {
@@ -783,14 +783,60 @@ footer p {
   .books-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* Hero: stack to single column */
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .hero-left {
+    border-right: none;
+    padding: 40px 7vw 32px;
+  }
+  .hero-right {
+    padding: 8px 7vw 56px;
+  }
+  .detail-grid {
+    grid-template-columns: 200px 1fr;
+    gap: 36px;
+  }
 }
 
-@media (max-width: 560px) {
-  header { padding: 16px 20px; }
-  .hero { padding: 0 6vw; }
-  .books-section { padding: 80px 5vw; }
+@media (max-width: 600px) {
+  :root { --spine-width: 36px; }
+
+  /* Hero */
+  .hero-left { padding: 32px 6vw 24px; }
+  .hero-text { padding: 24px 0; }
+  .hero-title { font-size: clamp(1.8rem, 8.5vw, 2.4rem); }
+  .hero-sub { font-size: 0.82rem; }
+
+  /* Decorative bookshelf is too heavy on small screens */
+  .hero-shelf { display: none; }
+  .hero-right { padding: 0 6vw 48px; }
+  .bgm-rows, .volume-row { max-width: 100%; }
+
+  /* 3D carousel doesn't work well on touch — hide and rely on the grid below */
+  .showcase { display: none; }
+
+  /* Filter chips — compact on mobile */
+  .filter-tags { gap: 8px; margin-bottom: 32px; }
+  .filter-tag { padding: 5px 12px; font-size: 0.7rem; }
+
+  /* Books grid */
+  .books-section { padding: 64px 6vw 80px; }
   .books-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px 16px;
+    gap: 28px 16px;
+  }
+  .book-desc { display: none; }
+
+  /* Detail page stacks */
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .detail-cover {
+    max-width: 200px;
   }
 }

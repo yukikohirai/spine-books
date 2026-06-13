@@ -32,14 +32,17 @@ function createCard(book) {
 }
 
 function setupScrollAnimation(cards) {
+  const reveal = (card) => {
+    const index = [...card.parentElement.children].indexOf(card);
+    setTimeout(() => card.classList.add('visible'), (index % 3) * 80);
+  };
+
   const observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry, i) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const card = entry.target;
-          const index = [...card.parentElement.children].indexOf(card);
-          setTimeout(() => card.classList.add('visible'), (index % 3) * 80);
-          observer.unobserve(card);
+          reveal(entry.target);
+          observer.unobserve(entry.target);
         }
       });
     },
@@ -47,6 +50,16 @@ function setupScrollAnimation(cards) {
   );
 
   cards.forEach(card => observer.observe(card));
+
+  // フェイルセーフ：Observerが発火しない環境でもカードを必ず表示する
+  setTimeout(() => {
+    cards.forEach(card => {
+      if (!card.classList.contains('visible')) {
+        card.classList.add('visible');
+        observer.unobserve(card);
+      }
+    });
+  }, 1200);
 }
 
 function setupHeaderScroll() {
