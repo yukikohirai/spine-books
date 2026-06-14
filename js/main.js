@@ -182,10 +182,20 @@ function setupShowcase(books) {
 
 // ─── Music Player (self-hosted audio: keeps playing in the background on mobile) ───
 const BGM_GROUPS = [
-  { name: 'Morning',   icon: '☀', tracks: ['audio/track1.mp3', 'audio/track2.mp3', 'audio/track3.mp3'] },
-  { name: 'Afternoon', icon: '◐', tracks: ['audio/track2.mp3', 'audio/track3.mp3', 'audio/track4.mp3'] },
-  { name: 'Night',     icon: '☽', tracks: ['audio/track3.mp3', 'audio/track4.mp3', 'audio/track1.mp3'] },
+  { name: 'Morning',   icon: '☀', tracks: ['audio/track1.mp3', 'audio/track2.mp3', 'audio/track3.mp3'], yt: ['pTMkDy0guJE', '88Rq16DL7qY', 'xjwPgxeOHNA'] },
+  { name: 'Afternoon', icon: '◐', tracks: ['audio/track2.mp3', 'audio/track3.mp3', 'audio/track4.mp3'], yt: ['F20kgtSMGew', 'b5GbCibheZo', 'thTwVYmVMoE'] },
+  { name: 'Night',     icon: '☽', tracks: ['audio/track3.mp3', 'audio/track4.mp3', 'audio/track1.mp3'], yt: ['4ehCL7_jc4Q', 'N81DOZr-mvs', '2zaZK2xHGcI'] },
 ];
+
+function setupYouTubeLinks() {
+  const box = document.getElementById('ytLinks');
+  if (!box) return;
+  const icons = BGM_GROUPS.flatMap(g => g.yt)
+    .map(id => `<a class="yt-icon" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener noreferrer" aria-label="YouTubeで聴く">
+        <img src="https://i.ytimg.com/vi/${id}/mqdefault.jpg" alt="" loading="lazy">
+      </a>`).join('');
+  box.innerHTML = `<p class="yt-label">Full ver. ▶ YouTube</p><div class="yt-icons">${icons}</div>`;
+}
 
 function setupMusicPlayer() {
   const rows      = document.getElementById('bgmRows');
@@ -296,6 +306,7 @@ async function init() {
   setupFilter(books, grid);
   setupScrollAnimation(cards);
   setupMusicPlayer();
+  setupYouTubeLinks();
 }
 
 document.addEventListener('DOMContentLoaded', init);
