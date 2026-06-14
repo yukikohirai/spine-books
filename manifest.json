@@ -1,0 +1,8 @@
+{
+  "name": "SPINE",
+  "short_name": "SPINE",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#c8e0da",
+  "theme_color": "#c8e0da"
+}

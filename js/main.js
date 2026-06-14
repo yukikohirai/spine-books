@@ -193,16 +193,24 @@ function setupMusicPlayer() {
   const audio     = document.getElementById('bgmAudio');
   if (!rows || !audio) return;
 
-  audio.loop = true;
+  // loop属性はiOSのバックグラウンド再生を止めるので使わず、曲終わりに次へ進める
+  audio.loop = false;
   audio.volume = volSlider ? parseFloat(volSlider.value) : 0.6;
 
-  let currentBtn = null;
-
+  // 全ボタンを1本のプレイリストにする
+  const playlist = [];
   BGM_GROUPS.forEach(group => {
+    group.tracks.forEach((src, i) => playlist.push({ src, title: `${group.name} ${i + 1}` }));
+  });
+
+  let curIndex = -1;
+
+  BGM_GROUPS.forEach((group, gi) => {
     const row = document.createElement('div');
     row.className = 'bgm-row';
+    const base = gi * 3;
     const nums = group.tracks
-      .map((src, i) => `<button class="bgm-num" data-src="${src}" data-title="${group.name} ${i + 1}">${i + 1}</button>`)
+      .map((src, i) => `<button class="bgm-num" data-index="${base + i}">${i + 1}</button>`)
       .join('');
     row.innerHTML = `
       <span class="bgm-row-icon">${group.icon}</span>
@@ -211,52 +219,61 @@ function setupMusicPlayer() {
     rows.appendChild(row);
   });
 
-  function setActive(btn) {
-    rows.querySelectorAll('.bgm-num').forEach(el => el.classList.toggle('playing', el === btn));
+  const buttons = [...rows.querySelectorAll('.bgm-num')];
+
+  function setActive(i) {
+    buttons.forEach((b, bi) => b.classList.toggle('playing', bi === i));
   }
 
-  // ロック画面・通知の再生コントロール（バックグラウンド再生の鍵）
-  function updateMediaSession(title) {
+  function syncMediaSession(title) {
     if (!('mediaSession' in navigator)) return;
     navigator.mediaSession.metadata = new MediaMetadata({
       title,
       artist: 'SPINE',
       album: 'A Personal Bookshelf',
     });
-    navigator.mediaSession.setActionHandler('play',  () => { audio.play(); });
-    navigator.mediaSession.setActionHandler('pause', () => { audio.pause(); });
-    navigator.mediaSession.setActionHandler('stop',  () => {
-      audio.pause(); audio.currentTime = 0; setActive(null); currentBtn = null;
-    });
+    navigator.mediaSession.setActionHandler('play',          () => playIndex(curIndex < 0 ? 0 : curIndex));
+    navigator.mediaSession.setActionHandler('pause',         () => audio.pause());
+    navigator.mediaSession.setActionHandler('previoustrack', () => playIndex((curIndex - 1 + playlist.length) % playlist.length));
+    navigator.mediaSession.setActionHandler('nexttrack',     () => playIndex((curIndex + 1) % playlist.length));
   }
 
-  rows.querySelectorAll('.bgm-num').forEach(btn => {
+  function playIndex(i) {
+    const track = playlist[i];
+    if (!track) return;
+    if (curIndex !== i) {
+      audio.src = track.src;
+      curIndex = i;
+    }
+    audio.play().catch(() => {});
+    setActive(i);
+    syncMediaSession(track.title);
+  }
+
+  buttons.forEach((btn, i) => {
     btn.addEventListener('click', () => {
-      if (currentBtn === btn) {                 // 同じ曲 → 停止
+      if (curIndex === i && !audio.paused) {   // 再生中の曲をもう一度押す → 一時停止
         audio.pause();
-        setActive(null);
-        currentBtn = null;
+        setActive(-1);
         return;
       }
-      if (!audio.src.endsWith(btn.dataset.src)) {
-        audio.src = btn.dataset.src;
-      }
-      audio.play().catch(() => {});
-      currentBtn = btn;
-      setActive(btn);
-      updateMediaSession(btn.dataset.title);
+      playIndex(i);
     });
   });
 
+  // 曲が終わったら次の曲へ（バックグラウンドでも継続）
+  audio.addEventListener('ended', () => playIndex((curIndex + 1) % playlist.length));
+
   if (volSlider) {
-    volSlider.addEventListener('input', () => {
-      audio.volume = parseFloat(volSlider.value);
-    });
+    volSlider.addEventListener('input', () => { audio.volume = parseFloat(volSlider.value); });
   }
 
   if ('mediaSession' in navigator) {
-    audio.addEventListener('play',  () => navigator.mediaSession.playbackState = 'playing');
-    audio.addEventListener('pause', () => navigator.mediaSession.playbackState = 'paused');
+    audio.addEventListener('play',  () => {
+      navigator.mediaSession.playbackState = 'playing';
+      if (curIndex >= 0) setActive(curIndex);
+    });
+    audio.addEventListener('pause', () => { navigator.mediaSession.playbackState = 'paused'; });
   }
 }
 
