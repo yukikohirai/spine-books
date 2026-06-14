@@ -47,7 +47,7 @@
 
       <!-- Bookshelf illustration -->
       <div class="hero-shelf">
-        <svg viewBox="0 0 320 304" fill="none" xmlns="http://www.w3.org/2000/svg" class="shelf-svg">
+        <svg viewBox="0 0 320 264" fill="none" xmlns="http://www.w3.org/2000/svg" class="shelf-svg">
           <g stroke="#4e8078" stroke-linecap="round" stroke-linejoin="round">
 
             <!-- ══ LEFT BOOKCASE (frontal view) ══ -->
@@ -265,20 +265,32 @@
             <!-- corner column -->
             <line x1="160" y1="16" x2="160" y2="238" stroke-width="2.5"/>
 
-            <!-- ══ SIDE TABLE + LAMP (below the shelf, left) ══ -->
-            <polyline points="100,252 108,242 116,252 100,252" stroke-width="1.2"/>
-            <line x1="108" y1="252" x2="108" y2="264" stroke-width="1.2"/>
-            <line x1="92" y1="264" x2="124" y2="264" stroke-width="1.5"/>
-            <line x1="98" y1="264" x2="96" y2="294" stroke-width="1.2"/>
-            <line x1="118" y1="264" x2="120" y2="294" stroke-width="1.2"/>
+            <!-- ══ READING NOOK (in front of the shelf; fills hide books behind for depth) ══ -->
+            <!-- floor line grounds the scene -->
+            <line x1="40" y1="250" x2="300" y2="250" stroke-width="1" stroke-opacity="0.45"/>
 
-            <!-- ══ ARMCHAIR (below the shelf, right) ══ -->
-            <rect x="152" y="248" width="54" height="20" rx="3" stroke-width="1.5"/>
-            <rect x="148" y="266" width="62" height="22" rx="4" stroke-width="1.5"/>
-            <rect x="140" y="256" width="10" height="20" rx="3" stroke-width="1.2"/>
-            <rect x="208" y="256" width="10" height="20" rx="3" stroke-width="1.2"/>
-            <line x1="154" y1="288" x2="152" y2="300" stroke-width="1.2"/>
-            <line x1="204" y1="288" x2="206" y2="300" stroke-width="1.2"/>
+            <!-- side table (left) with a small book -->
+            <ellipse cx="78" cy="214" rx="17" ry="4.5" fill="#c8e0da" stroke-width="1.3"/>
+            <line x1="66" y1="216" x2="64" y2="250" stroke-width="1.2"/>
+            <line x1="90" y1="216" x2="92" y2="250" stroke-width="1.2"/>
+            <line x1="78" y1="218" x2="78" y2="250" stroke-width="1.2" stroke-opacity="0.6"/>
+            <rect x="69" y="205" width="18" height="6" rx="1" fill="#c8e0da" stroke-width="1.2"/>
+            <rect x="71" y="199" width="15" height="6" rx="1" fill="#c8e0da" stroke-width="1.2"/>
+
+            <!-- armchair (center, front) -->
+            <path d="M120 232 Q116 176 150 174 Q190 174 190 200 L190 232 Z" fill="#c8e0da" stroke-width="1.5"/>
+            <path d="M118 232 L118 210 Q118 198 130 198 L178 198 Q190 198 190 210 L190 232 Z" fill="#c8e0da" stroke-width="1.5"/>
+            <rect x="112" y="206" width="16" height="30" rx="7" fill="#c8e0da" stroke-width="1.4"/>
+            <rect x="182" y="206" width="16" height="30" rx="7" fill="#c8e0da" stroke-width="1.4"/>
+            <rect x="120" y="226" width="70" height="14" rx="5" fill="#c8e0da" stroke-width="1.4"/>
+            <line x1="126" y1="240" x2="122" y2="250" stroke-width="1.3"/>
+            <line x1="184" y1="240" x2="188" y2="250" stroke-width="1.3"/>
+
+            <!-- slender floor lamp (right) -->
+            <ellipse cx="252" cy="250" rx="11" ry="3.5" fill="#c8e0da" stroke-width="1.2"/>
+            <line x1="252" y1="248" x2="252" y2="186" stroke-width="1.2"/>
+            <path d="M252 186 Q252 172 236 172" fill="none" stroke-width="1.2"/>
+            <path d="M226 170 L246 170 L242 184 L230 184 Z" fill="#c8e0da" stroke-width="1.3"/>
           </g>
         </svg>
       </div>
