@@ -180,54 +180,29 @@ function setupShowcase(books) {
   render();
 }
 
-// ─── Music Player (YouTube) ───
+// ─── Music Player (self-hosted audio: keeps playing in the background on mobile) ───
 const BGM_GROUPS = [
-  { name: 'Morning',   jp: '朝', icon: '☀', tracks: ['pTMkDy0guJE', '88Rq16DL7qY', 'xjwPgxeOHNA'] },
-  { name: 'Afternoon', jp: '昼', icon: '◐', tracks: ['F20kgtSMGew', 'b5GbCibheZo', 'thTwVYmVMoE'] },
-  { name: 'Night',     jp: '夜', icon: '☽', tracks: ['4ehCL7_jc4Q', 'N81DOZr-mvs', '2zaZK2xHGcI'] },
+  { name: 'Morning',   icon: '☀', tracks: ['audio/track1.mp3', 'audio/track2.mp3', 'audio/track3.mp3'] },
+  { name: 'Afternoon', icon: '◐', tracks: ['audio/track2.mp3', 'audio/track3.mp3', 'audio/track4.mp3'] },
+  { name: 'Night',     icon: '☽', tracks: ['audio/track3.mp3', 'audio/track4.mp3', 'audio/track1.mp3'] },
 ];
-
-let ytPlayer = null;
-let ytReady = false;
-let pendingVideoId = null;
-
-// YouTube IFrame API 読み込み
-function loadYouTubeAPI() {
-  const tag = document.createElement('script');
-  tag.src = 'https://www.youtube.com/iframe_api';
-  document.head.appendChild(tag);
-}
-
-window.onYouTubeIframeAPIReady = function () {
-  ytReady = true;
-  const container = document.getElementById('ytPlayerContainer');
-  ytPlayer = new YT.Player(container, {
-    height: '1', width: '1',
-    playerVars: { autoplay: 0, controls: 0 },
-    events: {
-      onReady: () => {
-        ytPlayer.setVolume(60);
-        if (pendingVideoId) {
-          ytPlayer.loadVideoById(pendingVideoId);
-          pendingVideoId = null;
-        }
-      }
-    }
-  });
-};
 
 function setupMusicPlayer() {
   const rows      = document.getElementById('bgmRows');
   const volSlider = document.getElementById('volumeSlider');
-  if (!rows) return;
+  const audio     = document.getElementById('bgmAudio');
+  if (!rows || !audio) return;
 
-  let currentId = null;
+  audio.loop = true;
+  audio.volume = volSlider ? parseFloat(volSlider.value) : 0.6;
+
+  let currentBtn = null;
 
   BGM_GROUPS.forEach(group => {
     const row = document.createElement('div');
     row.className = 'bgm-row';
     const nums = group.tracks
-      .map((id, i) => `<button class="bgm-num" data-id="${id}">${i + 1}</button>`)
+      .map((src, i) => `<button class="bgm-num" data-src="${src}" data-title="${group.name} ${i + 1}">${i + 1}</button>`)
       .join('');
     row.innerHTML = `
       <span class="bgm-row-icon">${group.icon}</span>
@@ -236,37 +211,53 @@ function setupMusicPlayer() {
     rows.appendChild(row);
   });
 
-  rows.querySelectorAll('.bgm-num').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = btn.dataset.id;
-      if (currentId === id) {
-        // 同じ曲 → 停止
-        ytPlayer?.stopVideo();
-        currentId = null;
-        setActive(null);
-        return;
-      }
-      currentId = id;
-      if (ytReady && ytPlayer) {
-        ytPlayer.loadVideoById(id);
-      } else {
-        pendingVideoId = id;
-      }
-      setActive(btn);
-    });
-  });
+  function setActive(btn) {
+    rows.querySelectorAll('.bgm-num').forEach(el => el.classList.toggle('playing', el === btn));
+  }
 
-  function setActive(activeBtn) {
-    rows.querySelectorAll('.bgm-num').forEach(el => {
-      el.classList.toggle('playing', el === activeBtn);
+  // ロック画面・通知の再生コントロール（バックグラウンド再生の鍵）
+  function updateMediaSession(title) {
+    if (!('mediaSession' in navigator)) return;
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title,
+      artist: 'SPINE',
+      album: 'A Personal Bookshelf',
+    });
+    navigator.mediaSession.setActionHandler('play',  () => { audio.play(); });
+    navigator.mediaSession.setActionHandler('pause', () => { audio.pause(); });
+    navigator.mediaSession.setActionHandler('stop',  () => {
+      audio.pause(); audio.currentTime = 0; setActive(null); currentBtn = null;
     });
   }
 
-  volSlider.addEventListener('input', () => {
-    ytPlayer?.setVolume(parseFloat(volSlider.value) * 100);
+  rows.querySelectorAll('.bgm-num').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (currentBtn === btn) {                 // 同じ曲 → 停止
+        audio.pause();
+        setActive(null);
+        currentBtn = null;
+        return;
+      }
+      if (!audio.src.endsWith(btn.dataset.src)) {
+        audio.src = btn.dataset.src;
+      }
+      audio.play().catch(() => {});
+      currentBtn = btn;
+      setActive(btn);
+      updateMediaSession(btn.dataset.title);
+    });
   });
 
-  loadYouTubeAPI();
+  if (volSlider) {
+    volSlider.addEventListener('input', () => {
+      audio.volume = parseFloat(volSlider.value);
+    });
+  }
+
+  if ('mediaSession' in navigator) {
+    audio.addEventListener('play',  () => navigator.mediaSession.playbackState = 'playing');
+    audio.addEventListener('pause', () => navigator.mediaSession.playbackState = 'paused');
+  }
 }
 
 async function init() {
