@@ -221,6 +221,11 @@ function setupMusicPlayer() {
 
   const buttons = [...rows.querySelectorAll('.bgm-num')];
 
+  // 同じ時間帯（3曲）の中だけでループする
+  const groupStart  = i => Math.floor(i / 3) * 3;
+  const nextInGroup = i => groupStart(i) + ((i - groupStart(i) + 1) % 3);
+  const prevInGroup = i => groupStart(i) + ((i - groupStart(i) + 2) % 3);
+
   function setActive(i) {
     buttons.forEach((b, bi) => b.classList.toggle('playing', bi === i));
   }
@@ -234,8 +239,8 @@ function setupMusicPlayer() {
     });
     navigator.mediaSession.setActionHandler('play',          () => playIndex(curIndex < 0 ? 0 : curIndex));
     navigator.mediaSession.setActionHandler('pause',         () => audio.pause());
-    navigator.mediaSession.setActionHandler('previoustrack', () => playIndex((curIndex - 1 + playlist.length) % playlist.length));
-    navigator.mediaSession.setActionHandler('nexttrack',     () => playIndex((curIndex + 1) % playlist.length));
+    navigator.mediaSession.setActionHandler('previoustrack', () => playIndex(prevInGroup(curIndex < 0 ? 0 : curIndex)));
+    navigator.mediaSession.setActionHandler('nexttrack',     () => playIndex(nextInGroup(curIndex < 0 ? 0 : curIndex)));
   }
 
   function playIndex(i) {
@@ -261,8 +266,8 @@ function setupMusicPlayer() {
     });
   });
 
-  // 曲が終わったら次の曲へ（バックグラウンドでも継続）
-  audio.addEventListener('ended', () => playIndex((curIndex + 1) % playlist.length));
+  // 曲が終わったら同じ時間帯の次の曲へ（バックグラウンドでも継続）
+  audio.addEventListener('ended', () => playIndex(nextInGroup(curIndex)));
 
   if (volSlider) {
     volSlider.addEventListener('input', () => { audio.volume = parseFloat(volSlider.value); });
