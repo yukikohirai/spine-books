@@ -726,14 +726,14 @@ body {
   border-radius: 50%;
   background: none;
   cursor: pointer;
-  font-family: 'EB Garamond', serif;
-  font-size: 0.75rem;
+  font-size: 0.55rem;
   color: var(--text);
   opacity: 0.65;
   transition: all 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-left: 1px;
 }
 
 .bgm-num:hover {
@@ -774,6 +774,7 @@ body {
 }
 
 .yt-icon {
+  position: relative;
   width: 34px;
   height: 34px;
   border-radius: 50%;
@@ -789,6 +790,25 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* red YouTube play badge so it's clear the thumbnail opens YouTube */
+.yt-icon::after {
+  content: '▶';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 12px;
+  border-radius: 3px;
+  background: #ff0000;
+  color: #fff;
+  font-size: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 1px;
 }
 
 .yt-icon:hover {
