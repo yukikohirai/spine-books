@@ -187,15 +187,6 @@ const BGM_GROUPS = [
   { name: 'Night',     icon: '☽', tracks: ['audio/track3.mp3', 'audio/track4.mp3', 'audio/track1.mp3'], yt: ['4ehCL7_jc4Q', 'N81DOZr-mvs', '2zaZK2xHGcI'] },
 ];
 
-function setupYouTubeLinks() {
-  const box = document.getElementById('ytLinks');
-  if (!box) return;
-  const icons = BGM_GROUPS.flatMap(g => g.yt)
-    .map(id => `<a class="yt-icon" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener noreferrer" aria-label="YouTubeで聴く">
-        <img src="https://i.ytimg.com/vi/${id}/mqdefault.jpg" alt="" loading="lazy">
-      </a>`).join('');
-  box.innerHTML = `<p class="yt-label">Full ver. ▶ YouTube</p><div class="yt-icons">${icons}</div>`;
-}
 
 function setupMusicPlayer() {
   const rows      = document.getElementById('bgmRows');
@@ -220,7 +211,12 @@ function setupMusicPlayer() {
     row.className = 'bgm-row';
     const base = gi * 3;
     const nums = group.tracks
-      .map((src, i) => `<button class="bgm-num" data-index="${base + i}">${i + 1}</button>`)
+      .map((src, i) => `<span class="bgm-slot">
+        <button class="bgm-num" data-index="${base + i}">${i + 1}</button>
+        <a class="yt-icon" href="https://www.youtube.com/watch?v=${group.yt[i]}" target="_blank" rel="noopener noreferrer" aria-label="フルver.をYouTubeで">
+          <img src="https://i.ytimg.com/vi/${group.yt[i]}/mqdefault.jpg" alt="" loading="lazy">
+        </a>
+      </span>`)
       .join('');
     row.innerHTML = `
       <span class="bgm-row-icon">${group.icon}</span>
@@ -306,7 +302,6 @@ async function init() {
   setupFilter(books, grid);
   setupScrollAnimation(cards);
   setupMusicPlayer();
-  setupYouTubeLinks();
 }
 
 document.addEventListener('DOMContentLoaded', init);
