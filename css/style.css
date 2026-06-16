@@ -765,25 +765,46 @@ body {
   cursor: pointer;
 }
 
-/* ─── YouTube full-version gallery ─── */
-.yt-gallery {
-  margin-top: 30px;
-  max-width: 340px;
+/* ─── YouTube full-version section ─── */
+.yt-section {
+  padding: 96px 8vw;
+  background: var(--bg);
 }
 
-.yt-gallery-label {
-  font-family: 'EB Garamond', serif;
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  color: var(--text);
-  opacity: 0.55;
-  margin-bottom: 14px;
+.yt-section-head {
+  text-align: center;
+  margin-bottom: 40px;
 }
+
+.yt-section-eyebrow {
+  display: block;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: 0.4;
+  margin-bottom: 10px;
+}
+
+.yt-section-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 400;
+  color: var(--text);
+}
+
+.yt-gallery {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.yt-gallery-label { display: none; }
 
 .yt-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  gap: 16px;
 }
 
 .yt-thumb {
