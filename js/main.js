@@ -188,6 +188,16 @@ const BGM_GROUPS = [
 ];
 
 
+function setupYouTubeGallery() {
+  const box = document.getElementById('ytLinks');
+  if (!box) return;
+  const thumbs = BGM_GROUPS.flatMap(g => g.yt)
+    .map(id => `<a class="yt-thumb" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener noreferrer" aria-label="YouTubeでフルver.を聴く">
+        <img src="https://i.ytimg.com/vi/${id}/mqdefault.jpg" alt="" loading="lazy">
+      </a>`).join('');
+  box.innerHTML = `<p class="yt-gallery-label">Full ver. ▶ YouTube</p><div class="yt-grid">${thumbs}</div>`;
+}
+
 function setupMusicPlayer() {
   const rows      = document.getElementById('bgmRows');
   const volSlider = document.getElementById('volumeSlider');
@@ -297,6 +307,7 @@ async function init() {
   setupFilter(books, grid);
   setupScrollAnimation(cards);
   setupMusicPlayer();
+  setupYouTubeGallery();
 }
 
 document.addEventListener('DOMContentLoaded', init);
