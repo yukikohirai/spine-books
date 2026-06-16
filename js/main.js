@@ -211,12 +211,7 @@ function setupMusicPlayer() {
     row.className = 'bgm-row';
     const base = gi * 3;
     const nums = group.tracks
-      .map((src, i) => `<span class="bgm-slot">
-        <button class="bgm-num" data-index="${base + i}" aria-label="このページで再生">▶</button>
-        <a class="yt-icon" href="https://www.youtube.com/watch?v=${group.yt[i]}" target="_blank" rel="noopener noreferrer" aria-label="フルver.をYouTubeで">
-          <img src="https://i.ytimg.com/vi/${group.yt[i]}/mqdefault.jpg" alt="" loading="lazy">
-        </a>
-      </span>`)
+      .map((src, i) => `<button class="bgm-num" data-index="${base + i}">${i + 1}</button>`)
       .join('');
     row.innerHTML = `
       <span class="bgm-row-icon">${group.icon}</span>
@@ -233,11 +228,7 @@ function setupMusicPlayer() {
   const prevInGroup = i => groupStart(i) + ((i - groupStart(i) + 2) % 3);
 
   function setActive(i) {
-    buttons.forEach((b, bi) => {
-      const on = bi === i;
-      b.classList.toggle('playing', on);
-      b.textContent = on ? '■' : '▶';
-    });
+    buttons.forEach((b, bi) => b.classList.toggle('playing', bi === i));
   }
 
   function syncMediaSession(title) {
